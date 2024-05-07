@@ -1,6 +1,6 @@
 # Bắt đầu với ứng dụng Techlines
 
-Dự án này được tải trên [Techlines](https://github.com/cuongnq10/techlines).
+Mã nguồn của dự án này được tải trên [Techlines](https://github.com/cuongnq10/techlines).
 
 ## Tập lệnh sẵn có
 
@@ -15,4 +15,4 @@ Trong thư mục gốc của dự án, để khởi chạy chương trình trong
 Mở [http://localhost:3000](http://localhost:3000) để xem chương trình trên trình duyệt.
 
 Trang ứng dụng sẽ tải lại mỗi khi có thay đổi.\
-Bạn cũng có thể thấy bất cứ lỗi mã nguồn trên bảng điều khiển.
+Bạn cũng có thể thấy bất cứ lỗi mã nguồn nào trên bảng điều khiển.

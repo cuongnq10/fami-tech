@@ -1,16 +1,27 @@
 import express from 'express';
 import Product from '../models/Product.js';
 
-const produtRoutes = express.Router();
+const productRoutes = express.Router();
 
 const getProducts = async (req, res) => {
+  const page = parseInt(req.params.page);
+  const perPage = parseInt(req.params.perPage);
   const products = await Product.find({});
-  res.json({
-    products,
-    pagination: {},
-  });
+  if (page && perPage) {
+    const totalPages = Math.ceil(products.length / perPage);
+    const starIndex = (page - 1) * perPage;
+    const endIndex = starIndex + perPage;
+    const paginatedProducts = products.slice(starIndex, endIndex);
+    res.json({
+      products: paginatedProducts,
+      pagination: { currentPage: page, totalPages },
+    });
+  } else {
+    res.json({ products, pagination: {} });
+  }
 };
 
-produtRoutes.route('/').get(getProducts);
+productRoutes.route('/:page/:perPage').get(getProducts);
+productRoutes.route('/').get(getProducts);
 
-export default produtRoutes;
+export default productRoutes;
