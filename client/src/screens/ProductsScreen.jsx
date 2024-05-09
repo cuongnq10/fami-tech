@@ -1,6 +1,5 @@
 import { Box, Button, Wrap, WrapItem, Center } from '@chakra-ui/react';
 import ProductCard from '../components/ProductCard';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../redux/actions/productActions';
