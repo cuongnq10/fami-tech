@@ -6,15 +6,13 @@
 
 ## Getting started
 
-### 1. Clone this repo
+### 1. Clone this repository
 
 ```bash
 $ git clone <REPO_URL>
 ```
 
 ### 2. Install dependencies
-
-Using npm:
 
 ```bash
 $ cd client
