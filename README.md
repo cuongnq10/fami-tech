@@ -1,18 +1,32 @@
-# Bắt đầu với ứng dụng Techlines
+# Fami Tech Application
 
-Mã nguồn của dự án này được tải trên [Techlines](https://github.com/cuongnq10/techlines).
+## Prerequisites
 
-## Tập lệnh sẵn có
+- Node.js ([v16.16.0](https://nodejs.org/ja/blog/release/v16.16.0) or higher)
 
-Trong thư mục gốc của dự án và trong thư mục "client", để cài đặt các gói chương trình bên thứ ba được cấu hình trong các tệp "package.json", bạn có thể chạy:
+## Getting started
 
-### `npm i` hoặc `npm install`
+### 1. Clone this repo
 
-Trong thư mục gốc của dự án, để khởi chạy chương trình trong môi trường phát triển, bạn có thể chạy:
+```bash
+$ git clone <REPO_URL>
+```
 
-### `npm run app`
+### 2. Install dependencies
 
-Mở [http://localhost:3000](http://localhost:3000) để xem chương trình trên trình duyệt.
+Using npm:
 
-Trang ứng dụng sẽ tải lại mỗi khi có thay đổi.\
-Bạn cũng có thể thấy bất cứ lỗi mã nguồn nào trên bảng điều khiển.
+```bash
+$ cd client
+
+$ npm install
+
+$ cd ..
+$  npm install
+```
+
+### 3. Run application locally
+
+```bash
+$ npm run app
+```
