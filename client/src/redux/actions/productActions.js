@@ -10,7 +10,7 @@ import {
 
 import axios from 'axios';
 
-export const getProducts = (page, favoritesToggle) => async (dispatch) => {
+export const getProducts = (page) => async (dispatch) => {
   dispatch(setLoading());
   try {
     const { data } = await axios.get(`/api/products/${page}/${10}`);
@@ -70,7 +70,7 @@ export const toggleFavorites = (toggle) => async (dispatch, getState) => {
 export const getProduct = (id) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const { data } = await axios.get(`api/products/${id}`);
+    const { data } = await axios.get(`/api/products/${id}`);
     dispatch(setProduct(data));
   } catch (error) {
     dispatch(
@@ -79,7 +79,7 @@ export const getProduct = (id) => async (dispatch) => {
           ? error.response.data.message
           : error.message
           ? error.message
-          : 'An expected error has occured. Please try again later'
+          : 'An expected error has occured. Please try again later.'
       )
     );
   }

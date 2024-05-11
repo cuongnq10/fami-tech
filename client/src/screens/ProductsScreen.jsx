@@ -1,6 +1,16 @@
-import { Box, Button, Wrap, WrapItem, Center } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Wrap,
+  WrapItem,
+  Center,
+  Alert,
+  AlertTitle,
+  AlertIcon,
+  AlertDescription,
+} from '@chakra-ui/react';
 import ProductCard from '../components/ProductCard';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../redux/actions/productActions';
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
@@ -27,13 +37,21 @@ const ProductsScreen = () => {
             minHeight='80vh'
             mx={{ base: '12', md: '20', lg: '32' }}
           >
-            {products.map((product) => (
-              <WrapItem key={product._id}>
-                <Center w='250px' h='450px'>
-                  <ProductCard product={product} loading={loading} />
-                </Center>
-              </WrapItem>
-            ))}
+            {error ? (
+              <Alert status='error'>
+                <AlertIcon />
+                <AlertTitle>We are sorry!</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            ) : (
+              products.map((product) => (
+                <WrapItem key={product._id}>
+                  <Center w='250px' h='450px'>
+                    <ProductCard product={product} loading={loading} />
+                  </Center>
+                </WrapItem>
+              ))
+            )}
           </Wrap>
           {!favoritesToggled && (
             <Wrap spacing='10px' justify='center' p='5'>
