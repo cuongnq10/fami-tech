@@ -13,7 +13,7 @@ import axios from 'axios';
 export const getProducts = (page) => async (dispatch) => {
   dispatch(setLoading());
   try {
-    const { data } = await axios.get(`/api/products/${page}/${10}`);
+    const { data } = await axios.get(`/api/products/${page}/${12}`);
     const { products, pagination } = data;
     dispatch(setProducts(products));
     dispatch(setPagination(pagination));
