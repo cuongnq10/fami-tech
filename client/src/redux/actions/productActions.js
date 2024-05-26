@@ -7,10 +7,9 @@ import {
   setFavoritesToggle,
   setProduct,
 } from '../slices/product';
-
 import axios from 'axios';
 
-export const getProducts = (page) => async (dispatch) => {
+export const getProducts = (page, favouriteToggle) => async (dispatch) => {
   dispatch(setLoading());
   try {
     const { data } = await axios.get(`/api/products/${page}/${12}`);
@@ -24,7 +23,7 @@ export const getProducts = (page) => async (dispatch) => {
           ? error.response.data.message
           : error.message
           ? error.message
-          : 'An expected error has occured. Please try again later'
+          : 'An expected error has occured. Please try again later.'
       )
     );
   }
