@@ -6,6 +6,7 @@ import {
   setFavorites,
   setFavoritesToggle,
   setProduct,
+  productReviewed,
 } from '../slices/product';
 import axios from 'axios';
 
@@ -28,6 +29,31 @@ export const getProducts = (page, favouriteToggle) => async (dispatch) => {
     );
   }
 };
+
+export const searchProducts =
+  (page, query = '') =>
+  async (dispatch) => {
+    dispatch(setLoading());
+    try {
+      const queryParam = query ? `&q=${encodeURIComponent(query)}` : '';
+      const { data } = await axios.get(
+        `/api/products/search/${page}/12?${queryParam}`
+      );
+      const { products, pagination } = data;
+      dispatch(setProducts(products));
+      dispatch(setPagination(pagination));
+    } catch (error) {
+      dispatch(
+        setError(
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+            ? error.message
+            : 'An unexpected error has occurred. Please try again later.'
+        )
+      );
+    }
+  };
 
 export const addToFavorites = (id) => async (dispatch, getState) => {
   const {
@@ -83,3 +109,39 @@ export const getProduct = (id) => async (dispatch) => {
     );
   }
 };
+
+export const createProductReview =
+  (productId, userId, comment, rating, title) => async (dispatch, getState) => {
+    const {
+      user: { userInfo },
+    } = getState();
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      await axios.post(
+        `/api/products/reviews/${productId}`,
+        {
+          comment,
+          userId,
+          rating,
+          title,
+        },
+        config
+      );
+      dispatch(productReviewed(true));
+    } catch (error) {
+      dispatch(
+        setError(
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+            ? error.message
+            : 'An expected error has occured. Please try again later.'
+        )
+      );
+    }
+  };

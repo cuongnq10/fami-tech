@@ -4,6 +4,8 @@ import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import { sendVerificationEmail } from '../middleware/sendVerificationEmail.js';
 import { sendPasswordResetEmail } from '../middleware/sendPasswordResetEmail.js';
+import { protectRoute } from '../middleware/authMiddleware.js';
+import Order from '../models/Order.js';
 
 const userRoutes = express.Router();
 
@@ -80,23 +82,12 @@ const registerUser = asyncHandler(async (req, res) => {
 
 // verify email
 const verifyEmail = asyncHandler(async (req, res) => {
-  const token = req.headers.authorization.split(' ')[1];
-  try {
-    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-    const user = await User.findById(decoded.id);
-
-    if (user) {
-      user.active = true;
-      await user.save();
-      res.json(
-        'Thanks for activating your account. You can close this window now.'
-      );
-    } else {
-      res.status(404).send('User not found.');
-    }
-  } catch (error) {
-    res.status(401).send('Email address could not be verified.');
-  }
+  const user = req.user;
+  user.active = true;
+  await user.save();
+  res.json(
+    'Thanks for activating your account. You can close this window now.'
+  );
 });
 
 // password reset request
@@ -136,6 +127,8 @@ const passwordReset = asyncHandler(async (req, res) => {
 //google login
 const googleLogin = asyncHandler(async (req, res) => {
   const { googleId, email, name, googleImage } = req.body;
+  console.log(googleId, email, name, googleImage);
+
   try {
     const user = await User.findOne({ googleId: googleId });
     if (user) {
@@ -151,16 +144,18 @@ const googleLogin = asyncHandler(async (req, res) => {
         isAdmin: user.isAdmin,
         token: genToken(user._id),
         active: user.active,
-        createAt: user.createdAt,
+        createdAt: user.createdAt,
       });
     } else {
       const newUser = await User.create({
         name,
         email,
         googleImage,
-        gooogleId,
+        googleId,
       });
+
       const newToken = genToken(newUser._id);
+
       sendVerificationEmail(newToken, newUser.email, newUser.name, newUser._id);
       res.json({
         _id: newUser._id,
@@ -172,7 +167,7 @@ const googleLogin = asyncHandler(async (req, res) => {
         isAdmin: newUser.isAdmin,
         token: genToken(newUser._id),
         active: newUser.active,
-        createAt: newUser.createdAt,
+        createdAt: newUser.createdAt,
       });
     }
   } catch (error) {
@@ -180,11 +175,22 @@ const googleLogin = asyncHandler(async (req, res) => {
   }
 });
 
+const getUserOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.params.id });
+  if (orders) {
+    res.json(orders);
+  } else {
+    res.status(404);
+    throw new Error('No orders found');
+  }
+});
+
 userRoutes.route('/login').post(loginUser);
 userRoutes.route('/register').post(registerUser);
-userRoutes.route('/verify-email').get(verifyEmail);
+userRoutes.route('/verify-email').get(protectRoute, verifyEmail);
 userRoutes.route('/password-reset-request').post(passwordResetRequest);
 userRoutes.route('/password-reset').post(passwordReset);
 userRoutes.route('/google-login').post(googleLogin);
+userRoutes.route('/:id').get(protectRoute, getUserOrders);
 
 export default userRoutes;

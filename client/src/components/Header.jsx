@@ -35,9 +35,12 @@ import { toggleFavorites } from '../redux/actions/productActions';
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { TbShoppingCart } from 'react-icons/tb';
 import { logout } from '../redux/actions/userActions';
-import { MdOutlineAdminPanelSettings } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc';
 import { googleLogout } from '@react-oauth/google';
+import { SearchIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
+
+import SearchBar from './SearchBar';
 
 const Links = [
   { name: 'Products', route: '/products' },
@@ -50,18 +53,46 @@ const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const toast = useToast();
+  const navigate = useNavigate();
   const { favoritesToggled } = useSelector((state) => state.product);
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.user);
   const [showBanner, setShowBanner] = useState(
     userInfo ? !userInfo.active : false
   );
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     if (userInfo && !userInfo.active) {
       setShowBanner(true);
     }
   }, [favoritesToggled, dispatch, userInfo]);
+
+  const handleSearchClick = () => {
+    setIsSearchOpen(true);
+  };
+  const handleCloseClick = () => {
+    setIsSearchOpen(false);
+  };
+
+  const handleSearchSubmit = () => {
+    if (query.trim()) {
+      navigate(`/search?q=${encodeURIComponent(query)}`);
+    }
+    setQuery('');
+    setIsSearchOpen(false);
+  };
+
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchSubmit();
+    }
+  };
 
   const logoutHandler = () => {
     googleLogout();
@@ -75,7 +106,7 @@ const Header = () => {
 
   return (
     <>
-      <Box bg={mode(`cyan.300`, 'gray.900')} px='4'>
+      <Box bg={mode(`cyan.300`, 'gray.900')} px='4' position='relative'>
         <Flex h='16' alignItems='center' justifyContent='space-between'>
           <Flex display={{ base: 'flex', md: 'none' }} alignItems='center'>
             <IconButton
@@ -113,7 +144,7 @@ const Header = () => {
                 w='6'
                 color={mode('black', 'yellow.200')}
               />
-              <Text as='b'>Tech Lines</Text>
+              <Text as='b'>Fami Tech</Text>
             </Box>
 
             <HStack as='nav' spacing='4' display={{ base: 'none', md: 'flex' }}>
@@ -157,6 +188,11 @@ const Header = () => {
                   variant='ghost'
                 />
               )}
+              <IconButton
+                icon={<SearchIcon size='20px' />}
+                variant='ghost'
+                onClick={handleSearchClick}
+              />
             </HStack>
           </HStack>
           <Flex alignItems='center'>
@@ -266,9 +302,24 @@ const Header = () => {
                 />
               )}
               <ColorModeToggle />
+              <IconButton
+                icon={<SearchIcon size='20px' />}
+                variant='ghost'
+                onClick={handleSearchClick}
+              />
             </Box>
           )}
         </Box>
+        {isSearchOpen && (
+          <SearchBar
+            query={query}
+            isSearchOpen={isSearchOpen}
+            handleInputChange={handleInputChange}
+            handleKeyPress={handleKeyPress}
+            handleSearchSubmit={handleSearchSubmit}
+            handleCloseClick={handleCloseClick}
+          />
+        )}
       </Box>
       {userInfo && !userInfo.active && showBanner && (
         <Box>
