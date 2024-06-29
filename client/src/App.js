@@ -19,6 +19,7 @@ import CancelScreen from './screens/CancelScreen';
 import YourOrdersScreen from './screens/YourOrdersScreen';
 import SuccessScreen from './screens/SuccessScreen';
 import SearchResultsScreen from './screens/SearchResultsScreen';
+import AdminConsoleScreen from './screens/AdminConsoleScreen';
 
 function App() {
   const [googleClient, setGoogleClient] = useState(null);
@@ -67,6 +68,7 @@ function App() {
               <Route path='/order-history' element={<YourOrdersScreen />} />
               <Route path='/success' element={<SuccessScreen />} />
               <Route path='/search' element={<SearchResultsScreen />} />
+              <Route path='/admin-console' element={<AdminConsoleScreen />} />
             </Routes>
           </main>
           <Footer />

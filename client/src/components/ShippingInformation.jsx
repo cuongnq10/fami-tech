@@ -40,17 +40,17 @@ const ShippingInformation = () => {
       }}
       validationSchema={Yup.object({
         address: Yup.string()
-          .required('We need an address.')
-          .min(2, 'This address is too short.'),
+          .required('Chúng tôi cần địa chỉ.')
+          .min(2, 'Địa chỉ này quá ngắn.'),
         postalCode: Yup.string()
-          .required('We need a postal code.')
-          .min(2, 'This postal code is too short.'),
+          .required('Chúng tôi cần mã bưu chính.')
+          .min(2, 'Mã bưu chính này quá ngắn.'),
         city: Yup.string()
-          .required('We need a city.')
-          .min(2, 'This city is too short.'),
+          .required('Chúng tôi cần thành phố.')
+          .min(2, 'Tên thành phố quá ngắn.'),
         country: Yup.string()
-          .required('We need a country.')
-          .min(2, 'This country is too short.'),
+          .required('Chúng tôi cần tên quốc gia.')
+          .min(2, 'Tên quốc gia quá ngắn.'),
       })}
       onSubmit={onSubmit}
     >
@@ -80,7 +80,7 @@ const ShippingInformation = () => {
             </FormControl>
             <Box w='100%' pr='5'>
               <Heading fontSize='2xl' fontWeight='extrabold' mb='10'>
-                Shipping Method
+                Phương thức vận chuyển
               </Heading>
               <RadioGroup
                 onChange={(e) => {
@@ -101,16 +101,16 @@ const ShippingInformation = () => {
                   <Stack pr='10' spacing={{ base: '8', md: '10' }} flex='1.5'>
                     <Box>
                       <Radio value='express'>
-                        <Text fontWeight='bold'>Express 14.99</Text>
-                        <Text>Dispatched in 24 hours</Text>
+                        <Text fontWeight='bold'>Nhanh 14.99</Text>
+                        <Text>Ngay trong 24 giờ</Text>
                       </Radio>
                     </Box>
-                    <Stack spacing='6'>Express</Stack>
+                    <Stack spacing='6'>Nhanh</Stack>
                   </Stack>
                   <Radio value='withoutExpress'>
                     <Box>
-                      <Text fontWeight='bold'>Standard 4.99</Text>
-                      <Text>Dispatched in 2 - 3 days</Text>
+                      <Text fontWeight='bold'>Tiêu chuẩn 4.99</Text>
+                      <Text>Từ 2 tới 3 ngày</Text>
                     </Box>
                   </Radio>
                 </Stack>
@@ -129,7 +129,7 @@ const ShippingInformation = () => {
               as={ReactLink}
               to='/cart'
             >
-              Back to cart
+              Quay lại giỏ hàng
             </Button>
             <Button
               variant='outline'
@@ -139,7 +139,7 @@ const ShippingInformation = () => {
               to='/payment'
               onClick={formik.handleSubmit}
             >
-              Continue to Payment
+              Tiếp tục thanh toán
             </Button>
           </Flex>
         </>

@@ -26,7 +26,11 @@ import {
 import { useEffect, useState } from 'react';
 import { BsPhoneFlip } from 'react-icons/bs';
 import { Link as ReactLink } from 'react-router-dom';
-import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
+import {
+  MdOutlineAdminPanelSettings,
+  MdOutlineFavorite,
+  MdOutlineFavoriteBorder,
+} from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import NavLink from './NavLink';
 import ColorModeToggle from './ColorModeToggle';
@@ -43,10 +47,10 @@ import { useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
 const Links = [
-  { name: 'Products', route: '/products' },
-  { name: 'Hot Deals', route: '/hot-deals' },
-  { name: 'Contact', route: '/contact' },
-  { name: 'Services', route: '/services' },
+  { name: 'Sản phẩm', route: '/products' },
+  { name: 'Giá tốt', route: '/hot-deals' },
+  { name: 'Liên hệ', route: '/contact' },
+  { name: 'Dịch vụ', route: '/services' },
 ];
 
 const Header = () => {
@@ -228,21 +232,22 @@ const Header = () => {
                   </HStack>
                   <Divider py='1' />
                   <MenuItem as={ReactLink} to='/order-history'>
-                    Order History
+                    Lịch sử đơn hàng
                   </MenuItem>
                   <MenuItem as={ReactLink} to='/profile'>
-                    Profile
+                    Tài khoản
                   </MenuItem>
                   {userInfo.isAdmin && (
                     <>
                       <MenuDivider />
                       <MenuItem as={ReactLink} to='/admin-console'>
-                        Admin Console
+                        <MdOutlineAdminPanelSettings />
+                        <Text ml='2'>Trang quản trị</Text>
                       </MenuItem>
                     </>
                   )}
                   <MenuDivider />
-                  <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+                  <MenuItem onClick={logoutHandler}>Đăng xuất</MenuItem>
                 </MenuList>
               </Menu>
             ) : (
@@ -261,7 +266,7 @@ const Header = () => {
                     fontWeight='400'
                     variant='link'
                   >
-                    Sign in
+                    Đăng nhập
                   </MenuItem>
                   <MenuDivider />
                   <MenuItem
@@ -271,7 +276,7 @@ const Header = () => {
                     fontWeight='400'
                     variant='link'
                   >
-                    Sign up
+                    Đăng ký
                   </MenuItem>
                 </MenuList>
               </Menu>
@@ -325,9 +330,9 @@ const Header = () => {
         <Box>
           <Alert status='warning'>
             <AlertIcon />
-            <AlertTitle>Email not verified!</AlertTitle>
+            <AlertTitle>Email chưa xác thực!</AlertTitle>
             <AlertDescription>
-              You must verify your email address.
+              Bạn phải xác thực địa chỉ email.
             </AlertDescription>
             <Spacer />
             <CloseIcon

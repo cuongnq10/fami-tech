@@ -36,7 +36,7 @@ const Footer = () => (
               Fami Tech
             </Text>
           </Flex>
-          <Text color='muted'>We love phones.</Text>
+          <Text color='muted'>Chúng tôi yêu điện thoại.</Text>
         </Stack>
         <Stack
           direction={{ base: 'column-reverse', md: 'column', lg: 'row' }}
@@ -45,27 +45,27 @@ const Footer = () => (
           <Stack direction='row' spacing='8'>
             <Stack spacing='4' minW='36' flex='1'>
               <Text fontSize='sm' fontWeight='semibold' color='subtle'>
-                Product
+                Sản phẩm
               </Text>
               <Stack spacing='3' shouldWrapChildren>
-                <Button variant='link'>How it works</Button>
-                <Button variant='link'>Pricing</Button>
+                <Button variant='link'>Hoạt động</Button>
+                <Button variant='link'>Giá cả</Button>
               </Stack>
             </Stack>
             <Stack spacing='4' minW='36' flex='1'>
               <Text fontSize='sm' fontWeight='semibold' color='subtle'>
-                Legal
+                Pháp lý
               </Text>
               <Stack spacing='3' shouldWrapChildren>
-                <Button variant='link'>Privacy</Button>
-                <Button variant='link'>Terms</Button>
-                <Button variant='link'>License</Button>
+                <Button variant='link'>Quyền riêng tư</Button>
+                <Button variant='link'>Điều khoản</Button>
+                <Button variant='link'>Giấy phép</Button>
               </Stack>
             </Stack>
           </Stack>
           <Stack spacing='4'>
             <Text fontSize='sm' fontWeight='semibold' color='subtle'>
-              Stay up to date
+              Nhận thông tin mới
             </Text>
             <Stack
               spacing='4'
@@ -74,7 +74,7 @@ const Footer = () => (
             >
               <Input placeholder='Enter your email' type='email' required />
               <Button variant='primary' type='submit' flexShrink={0}>
-                Subscribe
+                Đăng ký
               </Button>
             </Stack>
           </Stack>
@@ -89,7 +89,8 @@ const Footer = () => (
         align='center'
       >
         <Text fontSize='sm' color='subtle'>
-          &copy; {new Date().getFullYear()} Fami Tech, Inc. All rights reserved.
+          &copy; {new Date().getFullYear()} Fami Tech, Inc. Đã đăng ký bản
+          quyền.
         </Text>
         <ButtonGroup variant='ghost'>
           <IconButton

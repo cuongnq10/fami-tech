@@ -7,13 +7,14 @@ import {
   setFavoritesToggle,
   setProduct,
   productReviewed,
+  resetError,
 } from '../slices/product';
 import axios from 'axios';
 
 export const getProducts = (page, favouriteToggle) => async (dispatch) => {
   dispatch(setLoading());
   try {
-    const { data } = await axios.get(`/api/products/${page}/${12}`);
+    const { data } = await axios.get(`/api/products/${page}/${10}`);
     const { products, pagination } = data;
     dispatch(setProducts(products));
     dispatch(setPagination(pagination));
@@ -122,14 +123,10 @@ export const createProductReview =
           'Content-Type': 'application/json',
         },
       };
+
       await axios.post(
         `/api/products/reviews/${productId}`,
-        {
-          comment,
-          userId,
-          rating,
-          title,
-        },
+        { comment, userId, rating, title },
         config
       );
       dispatch(productReviewed(true));
@@ -145,3 +142,7 @@ export const createProductReview =
       );
     }
   };
+
+export const resetProductError = () => async (dispatch) => {
+  dispatch(resetError());
+};

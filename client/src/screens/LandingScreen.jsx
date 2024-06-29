@@ -43,7 +43,7 @@ const LandingScreen = () => (
               </Text>
             </Flex>
             <Heading size='xl' fontWeight='normal'>
-              Refresh your equipment
+              Làm mới thiết bị của bạn
             </Heading>
           </Stack>
           <HStack spacing='3'>
@@ -52,7 +52,7 @@ const LandingScreen = () => (
               to='/products'
               color={mode('cyan.500', 'yellow.200')}
             >
-              Discover now
+              Khám phá ngay
             </Link>
             <Icon color={mode('cyan.500', 'yellow.200')} as={FaArrowRight} />
           </HStack>

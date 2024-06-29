@@ -28,6 +28,7 @@ const orderSchema = new mongoose.Schema(
           required: true,
           ref: 'Product',
         },
+        warrantyTime: { type: Number },
       },
     ],
     shippingAddress: {

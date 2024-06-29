@@ -27,7 +27,7 @@ const CheckoutScreen = () => {
           mb={{ base: '12', md: 'none' }}
         >
           <Heading fontSize='2xl' fontWeight='extrabold'>
-            Shipping Information
+            Thông tin vận chuyển
           </Heading>
           <Stack>
             <ShippingInformation />

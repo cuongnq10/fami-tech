@@ -9,7 +9,7 @@ import {
   Tbody,
   Tr,
   Thead,
-  Button,
+  Badge,
   ListItem,
   UnorderedList,
   Table,
@@ -59,7 +59,7 @@ const YourOrdersScreen = () => {
       ) : error ? (
         <Alert status='error'>
           <AlertIcon />
-          <AlertTitle>We are sorry!</AlertTitle>
+          <AlertTitle>Chúng tôi xin lỗi!</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       ) : (
@@ -68,11 +68,10 @@ const YourOrdersScreen = () => {
             <Table variant='striped'>
               <Thead>
                 <Tr>
-                  <Th>Order Id</Th>
-                  <Th>Oder Date</Th>
-                  <Th>Paid Total</Th>
-                  <Th>Items</Th>
-                  <Th>Print Receipt</Th>
+                  <Th>Mã đơn</Th>
+                  <Th>Ngày đặt đơn</Th>
+                  <Th>Tổng giá trị</Th>
+                  <Th>Món hàng</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -85,13 +84,27 @@ const YourOrdersScreen = () => {
                       {order.orderItems.map((item) => (
                         <UnorderedList key={item._id}>
                           <ListItem>
-                            {item.qty} x {item.name} (${item.price} each)
+                            {item.qty} x {item.name} (${item.price} mỗi chiếc)
+                            {Math.floor(
+                              (new Date() - new Date(order.createdAt)) /
+                                (1000 * 60 * 60 * 24) <=
+                                item.warrantyTime * 30
+                            ) ? (
+                              <Badge
+                                // fontSize='sm'
+                                ml='30px'
+                                width='80px'
+                                textAlign='center'
+                                colorScheme='green'
+                              >
+                                Bảo hành
+                              </Badge>
+                            ) : (
+                              ''
+                            )}
                           </ListItem>
                         </UnorderedList>
                       ))}
-                    </Td>
-                    <Td>
-                      <Button variant='outline'>Receipt</Button>
                     </Td>
                   </Tr>
                 ))}

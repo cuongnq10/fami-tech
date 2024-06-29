@@ -106,7 +106,7 @@ const ProductScreen = () => {
       ) : error ? (
         <Alert status='error'>
           <AlertIcon />
-          <AlertTitle>We are sorry!</AlertTitle>
+          <AlertTitle>Chúng tôi xin lỗi!</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       ) : (
@@ -131,7 +131,7 @@ const ProductScreen = () => {
                     fontSize='0.8em'
                     colorScheme='green'
                   >
-                    New
+                    Mới
                   </Badge>
                 )}
                 {product.stock === 0 && (
@@ -141,7 +141,7 @@ const ProductScreen = () => {
                     fontSize='0.8em'
                     colorScheme='red'
                   >
-                    sold out
+                    Hết hàng
                   </Badge>
                 )}
                 <Heading fontSize='2xl' fontWeight='extrabold'>
@@ -159,13 +159,13 @@ const ProductScreen = () => {
                         <Star rating={product.rating} star={5} />
                       </HStack>
                       <Text fontSize='md' fontWeight='bold' ml='4px'>
-                        {product.numberOfReviews} Reviews
+                        {product.numberOfReviews} đánh giá
                       </Text>
                     </Flex>
                   </Box>
                   <Text>{product.subtitle}</Text>
                   <Text>{product.description}</Text>
-                  <Text fontWeight='bold'>Quantity</Text>
+                  <Text fontWeight='bold'>Số lượng</Text>
                   <Flex
                     w='170px'
                     p='5px'
@@ -188,12 +188,12 @@ const ProductScreen = () => {
                     </Button>
                   </Flex>
                   <Badge
-                    fontSize='lg'
+                    fontSize='sm'
                     width='170px'
                     textAlign='center'
                     colorScheme='gray'
                   >
-                    In Stock: {product.stock}
+                    Còn {product.stock} sản phẩm
                   </Badge>
                   <Button
                     variant='outline'
@@ -207,19 +207,19 @@ const ProductScreen = () => {
                     <Flex alignItems='center'>
                       <BiPackage size='20px' />
                       <Text fontWeight='medium' fontSize='sm' ml='2'>
-                        Shipped in 2 - 3 days
+                        Giao trong 2 - 3 ngày
                       </Text>
                     </Flex>
                     <Flex alignItems='center'>
                       <BiCheckShield size='20px' />
                       <Text fontWeight='medium' fontSize='sm' ml='2'>
-                        2 year extended warranty
+                        Bảo hành {product.warrantyTime} tháng
                       </Text>
                     </Flex>
                     <Flex alignItems='center'>
                       <BiSupport size='20px' />
                       <Text fontWeight='medium' fontSize='sm' ml='2'>
-                        We're here for you 24/7
+                        Chăm sóc khách hàng 24/7
                       </Text>
                     </Flex>
                   </Stack>
@@ -260,7 +260,7 @@ const ProductScreen = () => {
                     colorScheme='cyan'
                     onClick={() => setReviewBoxOpen(!reviewBoxOpen)}
                   >
-                    Write a review
+                    Viết đánh giá
                   </Button>
                 </Tooltip>
                 {reviewBoxOpen && (
@@ -301,7 +301,7 @@ const ProductScreen = () => {
                       colorScheme='cyan'
                       onClick={() => onSubmit()}
                     >
-                      Publish review
+                      Đăng tải đánh giá
                     </Button>
                   </Stack>
                 )}
@@ -309,7 +309,7 @@ const ProductScreen = () => {
             )}
             <Stack>
               <Text fontSize='xl' fontWeight='bold'>
-                Reviews
+                Đánh giá
               </Text>
               <SimpleGrid minChildWidth='300px' spacingX='40px' spacingY='20px'>
                 {product.reviews.map((review) => (

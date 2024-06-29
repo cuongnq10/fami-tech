@@ -51,7 +51,7 @@ const SearchBar = ({
           <InputGroup>
             <Input
               variant='filled'
-              placeholder='Search for phones...'
+              placeholder='Tìm điện thoại...'
               value={query}
               onChange={handleInputChange}
               onKeyPress={handleKeyPress}

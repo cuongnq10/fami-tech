@@ -4,14 +4,14 @@ import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import { sendVerificationEmail } from '../middleware/sendVerificationEmail.js';
 import { sendPasswordResetEmail } from '../middleware/sendPasswordResetEmail.js';
-import { protectRoute } from '../middleware/authMiddleware.js';
+import { protectRoute, admin } from '../middleware/authMiddleware.js';
 import Order from '../models/Order.js';
 
 const userRoutes = express.Router();
 
 //TODO: redefine expiresIn
 const genToken = (id) => {
-  return jwt.sign({ id }, process.env.TOKEN_SECRET, { expiresIn: '60d' });
+  return jwt.sign({ id }, process.env.TOKEN_SECRET, { expiresIn: '1d' });
 };
 
 // login
@@ -180,8 +180,23 @@ const getUserOrders = asyncHandler(async (req, res) => {
   if (orders) {
     res.json(orders);
   } else {
-    res.status(404);
-    throw new Error('No orders found');
+    res.status(404).send('No orders could be found.');
+    throw new Error('No Orders found.');
+  }
+});
+
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.json(users);
+});
+
+const deleteUser = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findByIdAndRemove(req.params.id);
+    res.json(user);
+  } catch (error) {
+    res.status(404).send('This user could not be found.');
+    throw new Error('This user could not be found.');
   }
 });
 
@@ -189,8 +204,10 @@ userRoutes.route('/login').post(loginUser);
 userRoutes.route('/register').post(registerUser);
 userRoutes.route('/verify-email').get(protectRoute, verifyEmail);
 userRoutes.route('/password-reset-request').post(passwordResetRequest);
-userRoutes.route('/password-reset').post(passwordReset);
+userRoutes.route('/password-reset').post(protectRoute, passwordReset);
 userRoutes.route('/google-login').post(googleLogin);
 userRoutes.route('/:id').get(protectRoute, getUserOrders);
+userRoutes.route('/').get(protectRoute, admin, getUsers);
+userRoutes.route('/:id').delete(protectRoute, admin, deleteUser);
 
 export default userRoutes;
